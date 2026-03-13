@@ -6,9 +6,10 @@
     <title>Project Details | Innovative Labs</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="data.js"></script>
     <script>
         // Copy your exact apps array from the main page here
-        const apps = [
+        /*const apps = [
             {
                 title: "Pantry Pals",
                 description: "AI-powered kitchen inventory management with smart barcode scanning and recipe generation. Perfect for organizing your home kitchen and reducing food waste.",
@@ -25,7 +26,7 @@
                 icon: "📊"
             }
             // Add your other projects here...
-        ];
+        ];*/
 
         tailwind.config = { darkMode: 'class' };
 
@@ -33,9 +34,10 @@
             // Get project name from URL
             const params = new URLSearchParams(window.location.search);
             const projectName = params.get('name');
+            // 'apps' is now globally available from data.js
             const app = apps.find(a => a.title === projectName);
-
-            if (!app) {
+    
+            if (!app || app.status === "soon") {
                 document.body.innerHTML = "<div class='p-20 text-center'>Project not found. <a href='index.html' class='text-sky-500'>Go back</a></div>";
                 return;
             }
