@@ -10,6 +10,11 @@ const apps = [
         featured: true,
         icon: "🍳",
         image: "pantry-pals-icon.png",
+        screenshots: [
+            "screenshots/pantry_pals/1.jpg",
+            "screenshots/pantry_pals/2.jpg",
+            "screenshots/pantry_pals/3.jpg"
+        ],
         status: "live"
     },
     {
