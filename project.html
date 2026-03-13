@@ -52,13 +52,13 @@
             // Render Download Links
             const linksContainer = document.getElementById('links-container');
             if (app.links.ios) {
-                linksContainer.innerHTML += `<a href="${app.links.ios}" class="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-slate-800 transition">Download on App Store</a>`;
+                linksContainer.innerHTML += `<a target="_blank" href="${app.links.ios}" class="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-slate-800 transition">Download on App Store</a>`;
             }
             if (app.links.android) {
-                linksContainer.innerHTML += `<a href="${app.links.android}" class="bg-green-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-green-700 transition">Get it on Google Play</a>`;
+                linksContainer.innerHTML += `<a target="_blank" href="${app.links.android}" class="bg-green-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-green-700 transition">Get it on Google Play</a>`;
             }
             if (app.links.web) {
-                linksContainer.innerHTML += `<a href="${app.links.web}" class="border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition">Launch Web App</a>`;
+                linksContainer.innerHTML += `<a target="_blank" href="${app.links.web}" class="border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition">Launch Web App</a>`;
             }
         };
     </script>
