@@ -8,33 +8,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <script src="data.js"></script>
     <script>
-        // Copy your exact apps array from the main page here
-        /*const apps = [
-            {
-                title: "Pantry Pals",
-                description: "AI-powered kitchen inventory management with smart barcode scanning and recipe generation. Perfect for organizing your home kitchen and reducing food waste.",
-                tags: ["React Native", "Node.js", "AI"],
-                links: { ios: "https://apps.apple.com/ca/app/pantry-pals/id6759459162", android: "https://play.google.com/store/apps/details?id=com.anonymous.pantrypal&pli=1" },
-                icon: "🍳",
-                image: "pantry-pals-icon.png"
-            },
-            {
-                title: "Aurallytics",
-                description: "Brand sentiment analysis and narrative summaries using high-fidelity audio processing.",
-                tags: ["TypeScript", "MongoDB", "Sentiment Analysis"],
-                links: { web: "https://aurallytics.app" },
-                icon: "📊"
-            }
-            // Add your other projects here...
-        ];*/
-
         tailwind.config = { darkMode: 'class' };
 
         window.onload = () => {
-            // Get project name from URL
             const params = new URLSearchParams(window.location.search);
             const projectName = params.get('name');
-            // 'apps' is now globally available from data.js
             const app = apps.find(a => a.title === projectName);
     
             if (!app || app.status === "soon") {
@@ -44,7 +22,9 @@
 
             // Fill page content
             document.getElementById('app-title').innerText = app.title;
-            document.getElementById('app-desc').innerText = app.description;
+            // Use fullDescription if available, otherwise fallback to short description
+            document.getElementById('app-desc').innerText = app.fullDescription || app.description;
+            
             document.getElementById('app-icon-container').innerHTML = app.image 
                 ? `<img src="${app.image}" class="w-32 h-32 rounded-3xl object-cover shadow-2xl">`
                 : `<div class="w-32 h-32 bg-sky-500 rounded-3xl flex items-center justify-center text-6xl shadow-2xl">${app.icon}</div>`;
@@ -52,40 +32,62 @@
             // Render Download Links
             const linksContainer = document.getElementById('links-container');
             if (app.links.ios) {
-                linksContainer.innerHTML += `<a target="_blank" href="${app.links.ios}" class="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-slate-800 transition">Download on App Store</a>`;
+                linksContainer.innerHTML += `<a target="_blank" href="${app.links.ios}" class="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-800 transition">Download on App Store</a>`;
             }
             if (app.links.android) {
-                linksContainer.innerHTML += `<a target="_blank" href="${app.links.android}" class="bg-green-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-green-700 transition">Get it on Google Play</a>`;
+                linksContainer.innerHTML += `<a target="_blank" href="${app.links.android}" class="bg-green-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-green-700 transition">Get it on Google Play</a>`;
             }
-            if (app.links.web) {
-                linksContainer.innerHTML += `<a target="_blank" href="${app.links.web}" class="border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition">Launch Web App</a>`;
+            if (app.links.web && app.links.web !== "#") {
+                linksContainer.innerHTML += `<a target="_blank" href="${app.links.web}" class="border-2 border-slate-200 dark:border-slate-700 dark:text-white px-8 py-4 rounded-2xl font-bold flex items-center justify-center hover:bg-slate-50 dark:hover:bg-slate-800 transition">Launch Web App</a>`;
+            }
+
+            // Render Screenshots
+            const screenshotGrid = document.getElementById('screenshot-grid');
+            if (app.screenshots && app.screenshots.length > 0) {
+                app.screenshots.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.className = "h-[500px] w-auto rounded-2xl shadow-lg border border-slate-200 dark:border-slate-700";
+                    screenshotGrid.appendChild(img);
+                });
+            } else {
+                document.getElementById('gallery-section').style.display = 'none';
             }
         };
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; }
+        /* Hide scrollbar but allow scrolling for the gallery */
+        #screenshot-grid::-webkit-scrollbar { display: none; }
+        #screenshot-grid { -ms-overflow-style: none; scrollbar-width: none; }
         .dark { background-color: #0F172A; color: #F8FAFC; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-900 transition-colors">
+<body class="bg-slate-50 text-slate-900 transition-colors dark:bg-slate-950">
     <nav class="p-6 max-w-7xl mx-auto">
         <a href="index.html" class="text-sm font-bold text-slate-500 hover:text-sky-500 flex items-center gap-2">
             ← Back to Portfolio
         </a>
     </nav>
 
-    <main class="max-w-4xl mx-auto px-6 pt-12 pb-24">
-        <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
-            <div id="app-icon-container"></div>
+    <main class="max-w-6xl mx-auto px-6 pt-12 pb-24">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-12 mb-20">
+            <div id="app-icon-container" class="shrink-0"></div>
             
             <div class="flex-1 text-center md:text-left">
-                <h1 id="app-title" class="text-5xl font-extrabold mb-6 tracking-tight"></h1>
-                <p id="app-desc" class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10"></p>
+                <h1 id="app-title" class="text-5xl md:text-6xl font-extrabold mb-6 tracking-tight dark:text-white"></h1>
+                <p id="app-desc" class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10 max-w-2xl"></p>
                 
                 <div id="links-container" class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
                     </div>
             </div>
         </div>
+
+        <section id="gallery-section" class="border-t border-slate-200 dark:border-slate-800 pt-16">
+            <h2 class="text-2xl font-bold mb-8 dark:text-white">Screenshots</h2>
+            <div id="screenshot-grid" class="flex gap-6 overflow-x-auto pb-4 cursor-grab active:cursor-grabbing">
+                </div>
+        </section>
     </main>
 </body>
 </html>
