@@ -70,45 +70,59 @@
         }
 
         window.onload = () => {
-            const grid = document.getElementById('apps-grid');
-            const featuredContainer = document.getElementById('featured-app');
-            
-            apps.forEach(app => {
-                // Render Featured Hero App
-                if (app.featured) {
-                    featuredContainer.innerHTML = `
-                        <div class="bg-white dark:bg-neural-card border border-slate-200 dark:border-slate-700 rounded-[2.5rem] shadow-2xl p-8 md:p-12 text-left app-shadow">
-                            <div class="flex flex-col md:flex-row gap-8 items-center">
-                                ${renderIcon(app, "w-24 h-24")}
-                                <div class="flex-1">
-                                    <span class="text-sky-500 font-bold uppercase tracking-widest text-xs">Featured Project</span>
-                                    <h2 class="text-3xl font-extrabold mt-2 mb-4 dark:text-white">${app.title}</h2>
-                                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-lg">${app.description}</p>
-                                    <div class="flex gap-2">
-                                        ${app.tags.map(t => `<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold">${t}</span>`).join('')}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-                }
+			const grid = document.getElementById('apps-grid');
+			const featuredContainer = document.getElementById('featured-app');
+			
+			apps.forEach(app => {
+				const isSoon = app.status === "soon";
+				// Create the URL; if it's "soon", we point to # so it doesn't navigate
+				const projectLink = isSoon ? "#" : `project.html?name=${encodeURIComponent(app.title)}`;
+				
+				// --- 1. Render Featured Hero App ---
+				if (app.featured) {
+					featuredContainer.innerHTML = `
+						<a href="${projectLink}" class="${isSoon ? 'cursor-default' : 'cursor-pointer'} block group">
+							<div class="bg-white dark:bg-neural-card border border-slate-200 dark:border-slate-700 rounded-[2.5rem] shadow-2xl p-8 md:p-12 text-left app-shadow transition-all group-hover:border-sky-500">
+								<div class="flex flex-col md:flex-row gap-8 items-center">
+									${renderIcon(app, "w-24 h-24")}
+									<div class="flex-1">
+										<div class="flex items-center gap-3">
+											<span class="text-sky-500 font-bold uppercase tracking-widest text-xs">Featured Project</span>
+											${isSoon ? '<span class="px-2 py-0.5 bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400 text-[10px] font-bold rounded uppercase">Coming Soon</span>' : ''}
+										</div>
+										<h2 class="text-3xl font-extrabold mt-2 mb-4 dark:text-white">${app.title}</h2>
+										<p class="text-slate-600 dark:text-slate-400 mb-6 text-lg">${app.description}</p>
+										<div class="flex gap-2">
+											${app.tags.map(t => `<span class="px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-xs font-semibold">${t}</span>`).join('')}
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					`;
+				}
 
-                // Render Grid
-                const card = document.createElement('div');
-                card.className = "p-8 rounded-3xl bg-white dark:bg-neural-card border border-slate-200 dark:border-slate-700 hover:border-sky-500 transition-all group";
-                card.innerHTML = `
-                    <div class="mb-6 group-hover:scale-110 transition-transform inline-block">
-                        ${renderIcon(app, "w-16 h-16")}
-                    </div>
-                    <h3 class="text-xl font-bold mb-3 dark:text-white">${app.title}</h3>
-                    <p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">${app.description}</p>
-                    <div class="flex flex-wrap gap-2 mb-4">
-                         ${app.tags.map(t => `<span class="text-[10px] uppercase font-bold text-slate-400">${t}</span>`).join(' • ')}
-                    </div>
-                `;
-                grid.appendChild(card);
-            });
-        };
+				// --- 2. Render Grid Card ---
+				const card = document.createElement('a');
+				card.href = projectLink;
+				card.className = `p-8 rounded-3xl bg-white dark:bg-neural-card border border-slate-200 dark:border-slate-700 transition-all group block ${isSoon ? 'opacity-75 cursor-default' : 'hover:border-sky-500 hover:shadow-xl'}`;
+				
+				card.innerHTML = `
+					<div class="flex justify-between items-start mb-6">
+						<div class="${isSoon ? '' : 'group-hover:scale-110'} transition-transform inline-block">
+							${renderIcon(app, "w-16 h-16")}
+						</div>
+						${isSoon ? '<span class="text-[10px] font-bold bg-slate-100 dark:bg-slate-800 px-2 py-1 rounded text-slate-500">SOON</span>' : ''}
+					</div>
+					<h3 class="text-xl font-bold mb-3 dark:text-white">${app.title}</h3>
+					<p class="text-slate-600 dark:text-slate-400 mb-6 text-sm">${app.description}</p>
+					<div class="flex flex-wrap gap-2 mb-4">
+						 ${app.tags.map(t => `<span class="text-[10px] uppercase font-bold text-slate-400">${t}</span>`).join(' • ')}
+					</div>
+				`;
+				grid.appendChild(card);
+			});
+		};
     </script>
     <style>
         body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease; }
