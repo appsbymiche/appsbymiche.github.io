@@ -11,9 +11,9 @@ const apps = [
         icon: "🍳",
         image: "pantry-pals-icon.png",
         screenshots: [
-            "screenshots/pantry_pals/1.jpg",
-            "screenshots/pantry_pals/2.jpg",
-            "screenshots/pantry_pals/3.jpg"
+            "screenshots/pantry_pals/1.png",
+            "screenshots/pantry_pals/2.png",
+            "screenshots/pantry_pals/3.png"
         ],
         status: "live"
     },
