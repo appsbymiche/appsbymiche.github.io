@@ -34,7 +34,7 @@ const apps = [
         links: { web: "#" },
         featured: false,
         icon: "🐾",
-        image: "pocketpet.jpeg",
-        status: "live"
+        /*image: "pocketpet.jpeg",
+        status: "soon"*/
     }
 ];
