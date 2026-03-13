@@ -33,8 +33,8 @@ const apps = [
         tags: ["SQLite", "Expo", "2D Graphics"],
         links: { web: "#" },
         featured: false,
-        icon: "🐾"
-        /*image: "pocketpet.jpeg",
-        status: "soon"*/
+        icon: "🐾",
+        /*image: "pocketpet.jpeg",*/
+        status: "soon"
     }
 ];
