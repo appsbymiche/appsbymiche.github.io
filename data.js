@@ -20,7 +20,7 @@ const apps = [
     },
     {
         title: "Aurallytics",
-        description: "Brand sentiment analysis and narrative summaries using high-fidelity audio processing.",
+        description: "Brand sentiment analysis and narrative summaries using public comments and LLM.",
         tags: ["TypeScript", "MongoDB", "Sentiment Analysis"],
         links: { web: "#" },
         featured: false,
