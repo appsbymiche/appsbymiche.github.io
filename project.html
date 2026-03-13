@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | Innovative Labs</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        // Copy your exact apps array from the main page here
+        const apps = [
+            {
+                title: "Pantry Pals",
+                description: "AI-powered kitchen inventory management with smart barcode scanning and recipe generation. Perfect for organizing your home kitchen and reducing food waste.",
+                tags: ["React Native", "Node.js", "AI"],
+                links: { ios: "https://apps.apple.com/...", android: "https://play.google.com/..." },
+                icon: "🍳",
+                image: "pantry-pals-icon.png"
+            },
+            {
+                title: "Aurallytics",
+                description: "Brand sentiment analysis and narrative summaries using high-fidelity audio processing.",
+                tags: ["TypeScript", "MongoDB", "Sentiment Analysis"],
+                links: { web: "https://aurallytics.app" },
+                icon: "📊"
+            }
+            // Add your other projects here...
+        ];
+
+        tailwind.config = { darkMode: 'class' };
+
+        window.onload = () => {
+            // Get project name from URL
+            const params = new URLSearchParams(window.location.search);
+            const projectName = params.get('name');
+            const app = apps.find(a => a.title === projectName);
+
+            if (!app) {
+                document.body.innerHTML = "<div class='p-20 text-center'>Project not found. <a href='index.html' class='text-sky-500'>Go back</a></div>";
+                return;
+            }
+
+            // Fill page content
+            document.getElementById('app-title').innerText = app.title;
+            document.getElementById('app-desc').innerText = app.description;
+            document.getElementById('app-icon-container').innerHTML = app.image 
+                ? `<img src="${app.image}" class="w-32 h-32 rounded-3xl object-cover shadow-2xl">`
+                : `<div class="w-32 h-32 bg-sky-500 rounded-3xl flex items-center justify-center text-6xl shadow-2xl">${app.icon}</div>`;
+
+            // Render Download Links
+            const linksContainer = document.getElementById('links-container');
+            if (app.links.ios) {
+                linksContainer.innerHTML += `<a href="${app.links.ios}" class="bg-black text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-slate-800 transition">Download on App Store</a>`;
+            }
+            if (app.links.android) {
+                linksContainer.innerHTML += `<a href="${app.links.android}" class="bg-green-600 text-white px-8 py-4 rounded-2xl font-bold flex items-center gap-3 hover:bg-green-700 transition">Get it on Google Play</a>`;
+            }
+            if (app.links.web) {
+                linksContainer.innerHTML += `<a href="${app.links.web}" class="border-2 border-slate-200 dark:border-slate-700 px-8 py-4 rounded-2xl font-bold hover:bg-slate-50 dark:hover:bg-slate-800 transition">Launch Web App</a>`;
+            }
+        };
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark { background-color: #0F172A; color: #F8FAFC; }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-900 transition-colors">
+    <nav class="p-6 max-w-7xl mx-auto">
+        <a href="index.html" class="text-sm font-bold text-slate-500 hover:text-sky-500 flex items-center gap-2">
+            ← Back to Portfolio
+        </a>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 pt-12 pb-24">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-12">
+            <div id="app-icon-container"></div>
+            
+            <div class="flex-1 text-center md:text-left">
+                <h1 id="app-title" class="text-5xl font-extrabold mb-6 tracking-tight"></h1>
+                <p id="app-desc" class="text-xl text-slate-600 dark:text-slate-400 leading-relaxed mb-10"></p>
+                
+                <div id="links-container" class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
