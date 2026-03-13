@@ -3,6 +3,7 @@ const apps = [
         title: "Pantry Pals",
         description: "AI-powered kitchen inventory management with smart barcode scanning and recipe generation.",
         tags: ["React Native", "Node.js", "AI"],
+        tech: ["React Native", "Expo", "Node.js", "MongoDB", "CloudFlare"],
         links: { 
             ios: "https://apps.apple.com/...", 
             android: "https://play.google.com/..." 
