@@ -5,8 +5,8 @@ const apps = [
         tags: ["React Native", "Node.js", "AI"],
         tech: ["React Native", "Expo", "Node.js", "MongoDB", "CloudFlare"],
         links: { 
-            ios: "https://apps.apple.com/...", 
-            android: "https://play.google.com/..." 
+            ios: "https://apps.apple.com/ca/app/pantry-pals-shared-list-ai/id6759459162", 
+            android: "https://play.google.com/store/apps/details?id=com.anonymous.pantrypal&pcampaignid=web_share" 
         },
         featured: true,
         icon: "🍳",
